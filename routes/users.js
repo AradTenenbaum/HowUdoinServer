@@ -41,8 +41,13 @@ router.post('/register', async (req, res) => {
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    // Create userID
-    const userID = makeid(8);
+    // Create userID and check if exist
+    let userID = makeid(8);
+    let isUserID = await User.findOne({userID: userID});
+    while(isUserID) {
+        userID = makeid(8);
+        isUserID = await User.findOne({userID: userID});
+    }
     // Create new user
     const user = new User({
         username: req.body.username,

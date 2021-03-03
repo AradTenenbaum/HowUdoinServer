@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv/config');
 
 const userRoute = require('./routes/users');
-const runServer = require('./socketServer');
+const runServer = require('./socket/socketServer');
 
 const app = express();
 
