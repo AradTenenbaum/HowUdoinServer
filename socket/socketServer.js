@@ -25,10 +25,11 @@ const runServer = (app) => {
 
         socket.on('sendMessage', ({ toUserId, message }, callback) => {
             const user = getUser(socket.id);
+            const userto = getUser(toUserId);
             if(message.length > 0) {
-                io.to(toUserId).emit('message', {username: user.username, message});
+                io.to(toUserId).emit('message', {usernameFrom: user.username, usernameTo: userto.username, message});
             }
-            callback();
+            // callback();
         });
 
         // Disconnect action
